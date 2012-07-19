@@ -20,11 +20,6 @@
  */
 @implementation FileReader
 
-- (void)dealloc{
-    [m_fileHandle release], m_fileHandle = nil;
-    [super dealloc];
-}
-
 /**
 	Initialized a file reader object.
 	@param filePath A file path.
@@ -37,7 +32,7 @@
 		if (!filePath || [filePath length] <= 0) {
 			return nil;
 		}
-		m_fileHandle = [[NSFileHandle fileHandleForReadingAtPath:filePath] retain];
+		m_fileHandle = [NSFileHandle fileHandleForReadingAtPath:filePath];
 		if (m_fileHandle == nil) {
 			return nil;
 		}
@@ -92,8 +87,7 @@
 	}
 
 	NSString* line = [currentData stringValueWithEncoding:NSUTF8StringEncoding];
-    // finished with data
-    [currentData release], currentData = nil;
+
 	return line;
 }
 
@@ -184,8 +178,7 @@
 	} // End if while.
 	
 	NSString* line = [[NSString alloc] initWithData:currentData encoding:NSUTF8StringEncoding];
-    // finished with data
-    [currentData release], currentData = nil;
+
 	return line;
 }
 
